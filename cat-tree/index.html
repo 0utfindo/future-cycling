@@ -1,1 +1,848 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Cycling — Návrh kategorizace (v2)</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2e3348;
+    --text: #e4e6f0;
+    --text-dim: #8b90a5;
+    --accent: #6c8cff;
+    --accent-dim: #3d5199;
+    --green: #4ade80;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+    --pink: #f472b6;
+    --orange: #fb923c;
+  }
 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 32px;
+    min-height: 100vh;
+  }
+
+  .header {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .header .subtitle {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .controls button {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+
+  .controls button:hover {
+    background: var(--accent-dim);
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    text-align: center;
+    min-width: 100px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ====== TREE ====== */
+  .tree-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 16px;
+  }
+
+  .l1-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .l1-card:hover {
+    border-color: var(--accent-dim);
+    box-shadow: 0 4px 20px rgba(108, 140, 255, 0.08);
+  }
+
+  .l1-header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+
+  .l1-header:hover { background: var(--surface2); }
+
+  .l1-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+
+  .l1-info { flex: 1; min-width: 0; }
+
+  .l1-name {
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .l1-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .badge-new { background: rgba(74, 222, 128, 0.15); color: var(--green); }
+  .badge-restructured { background: rgba(108, 140, 255, 0.15); color: var(--accent); }
+  .badge-elevated { background: rgba(167, 139, 250, 0.15); color: var(--purple); }
+  .badge-merged { background: rgba(251, 191, 36, 0.15); color: var(--amber); }
+  .badge-kept { background: rgba(139, 144, 165, 0.1); color: var(--text-dim); }
+
+  .product-count {
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .chevron {
+    color: var(--text-dim);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .l1-card.open > .l1-header .chevron { transform: rotate(90deg); }
+
+  .l2-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .l1-card.open .l2-list { max-height: 3000px; }
+
+  /* ====== L2 ITEMS ====== */
+  .l2-item {
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .l2-row {
+    padding: 10px 20px 10px 52px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    transition: background 0.15s;
+  }
+
+  /* tree connector lines */
+  .l2-row::before {
+    content: '';
+    position: absolute;
+    left: 34px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .l2-row::after {
+    content: '';
+    position: absolute;
+    left: 34px;
+    top: 50%;
+    width: 8px;
+    height: 2px;
+    background: var(--border);
+  }
+
+  /* Expandable L2 styling */
+  .l2-item.has-children .l2-row {
+    cursor: pointer;
+  }
+
+  .l2-item.has-children .l2-row:hover {
+    background: var(--surface2);
+  }
+
+  .l2-chevron {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(108, 140, 255, 0.1);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, background 0.15s;
+  }
+
+  .l2-item.has-children .l2-row:hover .l2-chevron {
+    background: rgba(108, 140, 255, 0.2);
+  }
+
+  .l2-item.open .l2-chevron {
+    transform: rotate(90deg);
+  }
+
+  .l2-name-text {
+    font-size: 13px;
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .l2-brands {
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 0 20px 6px 52px;
+  }
+
+  .l2-child-count {
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(108, 140, 255, 0.08);
+    padding: 1px 6px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .note-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .note-growth { background: rgba(45, 212, 191, 0.15); color: var(--teal); }
+  .note-cross { background: rgba(244, 114, 182, 0.15); color: var(--pink); }
+  .note-flag { background: rgba(251, 191, 36, 0.15); color: var(--amber); }
+
+  /* ====== L3 ITEMS ====== */
+  .l3-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(0,0,0,0.15);
+  }
+
+  .l2-item.open .l3-list { max-height: 600px; }
+
+  .l3-item {
+    padding: 5px 20px 5px 76px;
+    font-size: 12px;
+    color: var(--text-dim);
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .l3-item::before {
+    content: '';
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    transform: translateY(-50%);
+  }
+
+  /* ====== LOWER SECTIONS ====== */
+  .section-divider {
+    max-width: 1200px;
+    margin: 48px auto 0;
+  }
+
+  .section-divider h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-align: center;
+    color: var(--text-dim);
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .comparison-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .comparison-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comparison-card.current h3 { color: var(--red); }
+  .comparison-card.proposed h3 { color: var(--green); }
+
+  .comparison-list {
+    list-style: none;
+    font-size: 13px;
+  }
+
+  .comparison-list li {
+    padding: 4px 0;
+    color: var(--text-dim);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .comparison-card.current .comparison-list li::before { content: '✗'; color: var(--red); flex-shrink: 0; }
+  .comparison-card.proposed .comparison-list li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
+
+  .segment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+
+  .segment-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .segment-bar {
+    width: 4px;
+    height: 48px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .segment-info { flex: 1; }
+  .segment-name { font-size: 13px; font-weight: 600; }
+  .segment-share { font-size: 11px; color: var(--text-dim); }
+
+  .segment-status {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    flex-shrink: 0;
+  }
+
+  .status-served { background: rgba(74, 222, 128, 0.12); color: var(--green); }
+  .status-partial { background: rgba(251, 191, 36, 0.12); color: var(--amber); }
+  .status-gap { background: rgba(248, 113, 113, 0.12); color: var(--red); }
+
+  .gap-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .gap-icon { font-size: 20px; flex-shrink: 0; }
+  .gap-info { flex: 1; }
+  .gap-title { font-size: 13px; font-weight: 600; }
+  .gap-desc { font-size: 12px; color: var(--text-dim); }
+
+  .gap-market {
+    font-size: 11px;
+    color: var(--amber);
+    background: rgba(251, 191, 36, 0.1);
+    padding: 3px 8px;
+    border-radius: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .footer {
+    max-width: 1200px;
+    margin: 48px auto 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 16px; }
+    .tree-container { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Future Cycling — Návrh nové kategorizace</h1>
+  <p class="subtitle">Struktura optimalizovaná na základě zákaznického výzkumu (5 kategorií, Outfindo) a reálného inventáře (1 866 produktů)</p>
+
+  <div class="stats-bar" style="margin-bottom: 16px;">
+    <div class="stat"><div class="stat-value">7</div><div class="stat-label">Produktových L1</div></div>
+    <div class="stat"><div class="stat-value">1 866</div><div class="stat-label">Produktů</div></div>
+    <div class="stat"><div class="stat-value">5</div><div class="stat-label">Výzkumů</div></div>
+    <div class="stat"><div class="stat-value">7</div><div class="stat-label">Segmentů</div></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background: var(--green)"></div>Nová kategorie</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--accent)"></div>Restrukturalizace</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--purple)"></div>Povýšeno z hloubky</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--amber)"></div>Sloučeno</div>
+    <div class="legend-item"><div class="legend-dot" style="background: var(--text-dim)"></div>Zachováno</div>
+  </div>
+
+  <div class="controls">
+    <button onclick="toggleAll(true)">Rozbalit vše</button>
+    <button onclick="toggleAll(false)">Sbalit vše</button>
+  </div>
+</div>
+
+<div class="tree-container" id="tree"></div>
+
+<div class="section-divider">
+  <h2>Současný stav → Návrh</h2>
+  <div class="comparison-grid">
+    <div class="comparison-card current">
+      <h3>⚠️ Současné problémy</h3>
+      <ul class="comparison-list">
+        <li>Dvě matoucí kategorie "Doplňky" (na kolo vs. cyklistické)</li>
+        <li>Helmy pohřbené 3 úrovně hluboko v "Cyklistické doplňky"</li>
+        <li>Dětské produkty rozptýlené ve 4 kategoriích</li>
+        <li>Oblečení řazeno dle pohlaví, ne dle sezóny (Priority 10)</li>
+        <li>117× ochranné fólie UNLEAZHED schováno v "Ostatní"</li>
+        <li>MTB subkategorie míchají průměr kol, odpružení, disciplínu a pohlaví</li>
+        <li>Výživa (111 produktů) bez vlastní sekce</li>
+        <li>Nářadí a údržba uvězněno v doplňcích</li>
+      </ul>
+    </div>
+    <div class="comparison-card proposed">
+      <h3>✅ Navrhované řešení</h3>
+      <ul class="comparison-list">
+        <li>Jedna kategorie doplňků organizovaná dle účelu</li>
+        <li>Helmy a ochrana jako vlastní L1 (~70 produktů)</li>
+        <li>Dětská kola pod Kola, dětské helmy pod Helmy — čisté řazení dle produktu</li>
+        <li>Oblečení řazeno dle sezóny (léto, přechodné, zima, déšť)</li>
+        <li>Ochranné fólie jako prominentní subkategorie</li>
+        <li>MTB dle disciplíny (XC, Trail, Enduro) — velikost kol do filtru</li>
+        <li>Sportovní výživa jako samostatná sekce</li>
+        <li>Dílna a údržba jako vlastní svět</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider" style="margin-top: 48px;">
+  <h2>Pokrytí zákaznických segmentů</h2>
+  <div class="segment-grid" id="segments"></div>
+</div>
+
+<div class="section-divider" style="margin-top: 48px; padding-bottom: 20px;">
+  <h2>Strategické příležitosti (inventář vs. trh)</h2>
+  <div id="gaps"></div>
+</div>
+
+<div class="footer">
+  Outfindo Research × Heureka XML · Připraveno pro Future Cycling · Březen 2026 · v2 (validováno inventářem)
+</div>
+
+<script>
+const treeData = [
+  {
+    name: "Jízdní kola", icon: "🚲", badge: "restructured", badgeText: "Restrukturalizace",
+    products: "~100", pct: "5%",
+    meta: "Dle disciplíny, ne dle velikosti kol. Rámové sady nově jako vlastní sekce.",
+    children: [
+      { name: "Silniční kola", brands: "Argon 18, Enve, Time, Superior",
+        children: ["Závodní a aero", "Endurance", "Triatlon / Časovka"] },
+      { name: "Horská kola (MTB)", brands: "Superior, Ghost, Rock Machine",
+        children: ["Cross Country (XC)", "Trail", "Enduro / All-Mountain"] },
+      { name: "Gravel kola", brands: "Superior, Enve" },
+      { name: "Elektrokola", brands: "Argon 18", note: "growth", noteText: "3 produkty — růstový potenciál" },
+      { name: "Dětská kola", brands: "Early Rider, Superior",
+        children: ["Odrážedla (1-3 roky)", "Dětská kola 14\"–16\" (3-6 let)", "Dětská kola 20\"–24\" (7-12 let)", "Dětská kola 27,5\" (14+ let)"] },
+      { name: "Rámové sady", brands: "Enve, Time, Stoll, Cadex", note: "flag", noteText: "Nově viditelné" },
+      { name: "Stavby na zakázku" },
+      { name: "Test centrum / Testovací kola" },
+      { name: "Signature Bike Program" }
+    ]
+  },
+  {
+    name: "Cyklistické oblečení", icon: "👕", badge: "restructured", badgeText: "Restrukturalizace",
+    products: "~640", pct: "34%",
+    meta: "Sezóna jako primární osa (Priority 10). Pohlaví jako alternativní vstup.",
+    children: [
+      { name: "Letní oblečení", children: ["Dresy", "Kraťasy a kalhoty", "Lehké vesty"] },
+      { name: "Přechodné oblečení", children: ["Softshellové bundy", "Dlouhé kalhoty", "Dlouhé dresy"] },
+      { name: "Zimní oblečení", children: ["Zimní bundy", "Zateplené kalhoty", "Zimní doplňky (návleky, nákrčníky)"] },
+      { name: "Do deště", children: ["Nepromokavé bundy", "Návleky na tretry"] },
+      { name: "Spodní prádlo a baselayer", brands: "VOID" },
+      { name: "Doplňky", children: ["Rukavice", "Ponožky (SOX — 93 ks)", "Čepice a čelenky", "Návleky na ruce a nohy"] },
+      { name: "Lifestyle a off-bike oblečení", brands: "ENVE, Domestici", note: "flag", noteText: "Odděleno od technického oblečení" },
+      { name: "Pánské → filtrovaný pohled", note: "cross" },
+      { name: "Dámské → filtrovaný pohled", note: "cross" }
+    ]
+  },
+  {
+    name: "Helmy a ochrana", icon: "⛑️", badge: "elevated", badgeText: "Povýšeno",
+    products: "~70", pct: "4%",
+    meta: "Z 3. úrovně na L1. Bezpečnost = Priority 10 ve výzkumu.",
+    children: [
+      { name: "Silniční helmy", brands: "ABUS Airbreaker, PowerDome" },
+      { name: "MTB helmy", brands: "ABUS Moventor, MoDrop, KED Crom" },
+      { name: "Enduro helmy", brands: "KED Pector, FOX" },
+      { name: "Dětské helmy", brands: "ABUS Smiley, KED, Uvex" },
+      { name: "Brýle", brands: "Oakley" },
+      { name: "Příslušenství" }
+    ]
+  },
+  {
+    name: "Doplňky a vybavení", icon: "🎒", badge: "merged", badgeText: "Sloučeno",
+    products: "~370", pct: "20%",
+    meta: "Sloučení 2 matoucích kategorií → organizace dle účelu.",
+    children: [
+      { name: "Ochranné fólie a polepy", brands: "UNLEAZHED", note: "flag", noteText: "117 ks — největší řada v obchodě!" },
+      { name: "Brašny a nosiče", brands: "Topeak, Evoc",
+        children: ["Brašny na kolo", "Bikepacking brašny", "Přepravní obaly"] },
+      { name: "Bidony", brands: "ARUNDEL, Rock Machine" },
+      { name: "Košíky na bidony", brands: "Fidlock, ARUNDEL, Enve" },
+      { name: "Blatníky", note: "flag", noteText: "74 produktů" },
+      { name: "Computery a elektronika", brands: "Garmin", children: ["Cyklopočítače a GPS", "Měřiče výkonu", "Senzory a příslušenství"] },
+      { name: "Osvětlení", brands: "Knog, Lezyne" },
+      { name: "Zabezpečení", brands: "ABUS" },
+      { name: "Zvonky" },
+      { name: "Trenažéry" },
+      { name: "Cyklistické tretry", brands: "Northwave" },
+      { name: "Batohy a vaky", brands: "USWE, ERGON" }
+    ]
+  },
+  {
+    name: "Sportovní výživa a kosmetika", icon: "⚡", badge: "new", badgeText: "Nová",
+    products: "~110", pct: "6%",
+    meta: "226ERS (101 ks) odděleno od mazání řetězů. Jiný nákupní moment.",
+    children: [
+      { name: "Gely a tyčinky", brands: "226ERS" },
+      { name: "Nápoje a elektrolyty", brands: "226ERS" },
+      { name: "Vitamíny a doplňky", brands: "TRIME" },
+      { name: "Sportovní kosmetika", brands: "Sportsbalm" }
+    ]
+  },
+  {
+    name: "Komponenty", icon: "⚙️", badge: "restructured", badgeText: "Restrukturalizace",
+    products: "~550", pct: "29%",
+    meta: "Expert navigace zachována. Nový cluster Kokpit a posed (fit, Priority 10).",
+    children: [
+      { name: "Pohon", brands: "SRAM, CERAMICSPEED, MAX1",
+        children: ["Kazety", "Řetězy a spojky", "Kliky a převodníky", "Přehazovačky a kladky", "Středová složení"] },
+      { name: "Brzdy", brands: "SRAM",
+        children: ["Kotoučové brzdy", "Brzdové kotouče", "Destičky", "Brzdové adaptéry"] },
+      { name: "Kola a pláště", brands: "Enve, Maxxis, CARBON-TI",
+        children: ["Zapletená kola", "Pláště MTB", "Pláště silniční", "Pláště gravel", "Duše (99 ks)", "Bezdušové systémy", "Náboje", "Osy a rychloupínáky"] },
+      { name: "Odpružení", children: ["Vidlice", "Tlumiče", "Náhradní díly"] },
+      { name: "Kokpit a posed", brands: "ERGON, Enve, Supacaz, CERAMICSPEED",
+        note: "flag", noteText: "Nový cluster — fit/komfort",
+        children: ["Sedla", "Sedlovky a objímky", "Řidítka", "Představce (63 ks)", "Gripy a omotávky (61 ks)", "Pedály"] },
+      { name: "Hlavové složení" }
+    ]
+  },
+  {
+    name: "Dílna a údržba", icon: "🔧", badge: "new", badgeText: "Nová",
+    products: "~52 + spotřební", pct: "3%",
+    meta: "DIY segment (12-20% trhu). Spotřební materiál cross-listován z Komponentů.",
+    children: [
+      { name: "Nářadí", brands: "Lezyne, MAX1", children: ["Multiklíče a klíče", "Speciální nářadí"] },
+      { name: "Pumpy", brands: "Lezyne, Topeak", children: ["Dílenské pumpy", "Mini pumpy a CO2"] },
+      { name: "Čištění a mazání", brands: "Motorex, CERAMICSPEED, SILCA" },
+      { name: "Spotřební materiál", note: "cross", noteText: "Cross-link z Komponentů",
+        children: ["Duše", "Brzdové destičky", "Řetězy", "Bezdušové sady"] }
+    ]
+  }
+];
+
+const commercialData = [
+  { name: "Akční zboží", icon: "🏷️", badge: "kept", badgeText: "Zachováno", products: "variabilní", meta: "Kola, oblečení, komponenty, doplňky ve slevě" },
+  { name: "Značky", icon: "🏢", badge: "kept", badgeText: "Zachováno", products: "vše", meta: "Enve (115), UNLEAZHED (155), USWE (153), DOTOUT (120), 226ERS (111), VOID (98), SOX (93)…" },
+  { name: "Merchandise", icon: "🎽", badge: "kept", badgeText: "Zachováno", products: "19", meta: "Future Cycling, MTB Team, Domestici" }
+];
+
+const segmentData = [
+  { name: "Urban Commuter", share: "25-30%", status: "gap", statusText: "Inventář chybí", color: "var(--red)" },
+  { name: "E-Bike System Buyer", share: "15-20%", status: "gap", statusText: "3 produkty", color: "var(--red)" },
+  { name: "Fit & Comfort Seeker", share: "12-20%", status: "served", statusText: "Pokryto", color: "var(--green)" },
+  { name: "Trail & Off-Road", share: "12-17%", status: "served", statusText: "Pokryto", color: "var(--green)" },
+  { name: "DIY Maintenance", share: "12-20%", status: "served", statusText: "Pokryto", color: "var(--green)" },
+  { name: "Family Safety Guardian", share: "10-15%", status: "partial", statusText: "Premium nika", color: "var(--amber)" },
+  { name: "Performance & Racing", share: "3-8%", status: "served", statusText: "Jádro obchodu", color: "var(--green)" }
+];
+
+const gapsData = [
+  { icon: "🏙️", title: "Městská / commuter kola", desc: "Nulový inventář pro největší tržní segment", market: "25-30% trhu" },
+  { icon: "⚡", title: "Elektrokola", desc: "3 produkty pro 2. největší segment. Obrovský růstový potenciál.", market: "15-20% trhu" },
+  { icon: "🌧️", title: "Nepromokavé oblečení", desc: "Priority 10 ve výzkumu — nejasný počet produktů v nabídce", market: "Priority 10" },
+  { icon: "🔒", title: "Zámky a zabezpečení", desc: "Pouze 3 produkty. Klíčová potřeba pro komutéry i e-bike segment.", market: "3 produkty" },
+  { icon: "💡", title: "Osvětlení", desc: "Pouze 11 produktů pro Priority 10 bezpečnostní cíl", market: "11 produktů" }
+];
+
+function renderTree() {
+  const container = document.getElementById('tree');
+
+  [...treeData, ...commercialData].forEach(l1 => {
+    const card = document.createElement('div');
+    card.className = 'l1-card';
+    const hasChildren = l1.children && l1.children.length > 0;
+
+    let html = `
+      <div class="l1-header" ${hasChildren ? 'onclick="toggleL1(this)"' : ''}>
+        <div class="l1-icon">${l1.icon}</div>
+        <div class="l1-info">
+          <div class="l1-name">
+            ${l1.name}
+            <span class="badge badge-${l1.badge}">${l1.badgeText}</span>
+          </div>
+          <div class="l1-meta">${l1.meta}</div>
+        </div>
+        <span class="product-count">${l1.products}${l1.pct ? ' · ' + l1.pct : ''}</span>
+        ${hasChildren ? '<span class="chevron">▶</span>' : ''}
+      </div>
+    `;
+
+    if (hasChildren) {
+      html += '<div class="l2-list">';
+      l1.children.forEach(l2 => {
+        const hasL3 = l2.children && l2.children.length > 0;
+
+        html += `<div class="l2-item${hasL3 ? ' has-children' : ''}">`;
+
+        // L2 row
+        html += `<div class="l2-row" ${hasL3 ? 'onclick="toggleL2(event, this)"' : ''}>`;
+
+        if (hasL3) {
+          html += `<span class="l2-chevron">▶</span>`;
+        }
+
+        html += `<span class="l2-name-text">${l2.name}</span>`;
+
+        if (l2.note) {
+          html += `<span class="note-tag note-${l2.note}">${l2.noteText || ''}</span>`;
+        }
+
+        if (hasL3) {
+          html += `<span class="l2-child-count">${l2.children.length} sub</span>`;
+        }
+
+        html += '</div>'; // close l2-row
+
+        if (l2.brands) {
+          html += `<div class="l2-brands">${l2.brands}</div>`;
+        }
+
+        if (hasL3) {
+          html += '<div class="l3-list">';
+          l2.children.forEach(l3 => {
+            html += `<div class="l3-item">${l3}</div>`;
+          });
+          html += '</div>';
+        }
+
+        html += '</div>'; // close l2-item
+      });
+      html += '</div>';
+    }
+
+    card.innerHTML = html;
+    container.appendChild(card);
+  });
+}
+
+function renderSegments() {
+  const c = document.getElementById('segments');
+  segmentData.forEach(s => {
+    c.innerHTML += `
+      <div class="segment-card">
+        <div class="segment-bar" style="background: ${s.color}"></div>
+        <div class="segment-info">
+          <div class="segment-name">${s.name}</div>
+          <div class="segment-share">${s.share} trhu</div>
+        </div>
+        <div class="segment-status status-${s.status}">${s.statusText}</div>
+      </div>`;
+  });
+}
+
+function renderGaps() {
+  const c = document.getElementById('gaps');
+  gapsData.forEach(g => {
+    c.innerHTML += `
+      <div class="gap-row">
+        <div class="gap-icon">${g.icon}</div>
+        <div class="gap-info">
+          <div class="gap-title">${g.title}</div>
+          <div class="gap-desc">${g.desc}</div>
+        </div>
+        <div class="gap-market">${g.market}</div>
+      </div>`;
+  });
+}
+
+function toggleL1(header) {
+  header.closest('.l1-card').classList.toggle('open');
+}
+
+function toggleL2(event, row) {
+  event.stopPropagation();
+  row.closest('.l2-item').classList.toggle('open');
+}
+
+function toggleAll(open) {
+  document.querySelectorAll('.l1-card').forEach(c => {
+    if (c.querySelector('.l2-list')) c.classList.toggle('open', open);
+  });
+  document.querySelectorAll('.l2-item.has-children').forEach(i => {
+    i.classList.toggle('open', open);
+  });
+}
+
+renderTree();
+renderSegments();
+renderGaps();
+</script>
+</body>
+</html>
