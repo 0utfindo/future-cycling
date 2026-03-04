@@ -262,9 +262,20 @@
                     <div class="text-slate-500 text-xs">returns: 14 days, warranty: 24 months</div>
                 </div>
             </div>
-            <p class="text-slate-500 text-sm mt-4 text-center">
-                LLM použije Blueprint k <strong class="text-white">nalezení</strong> produktu, Description k <strong class="text-white">ověření</strong> doporučení, MCL k <strong class="text-white">výběru</strong> prodejce.
-            </p>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-center">
+                <div class="p-3 bg-outfindo/5 rounded-lg border border-outfindo/20">
+                    <p class="text-xs text-outfindo font-medium">🤖 Blueprint → LLM Impact</p>
+                    <p class="text-xs text-slate-400 mt-1">Enables AI agents to <strong class="text-white">FIND, FILTER</strong> and <strong class="text-white">COMPARE</strong> products</p>
+                </div>
+                <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-600/30">
+                    <p class="text-xs text-slate-300 font-medium">📝 Description → LLM Impact</p>
+                    <p class="text-xs text-slate-400 mt-1">Provides semantic context LLMs use to <strong class="text-white">EXPLAIN</strong> and <strong class="text-white">JUSTIFY</strong> recommendations</p>
+                </div>
+                <div class="p-3 bg-amber-900/10 rounded-lg border border-amber-500/20">
+                    <p class="text-xs text-amber-400 font-medium">🪙 MCL → LLM Impact</p>
+                    <p class="text-xs text-slate-400 mt-1">Enables AI agents to recommend <strong class="text-white">WHERE TO BUY</strong></p>
+                </div>
+            </div>
         </section>
 
         <!-- Bicycle-Specific Blueprint Layers -->
@@ -289,6 +300,10 @@
                         <span class="px-2 py-1 bg-slate-800 text-slate-400 rounded text-xs font-mono">bike_type</span>
                         <span class="px-2 py-1 bg-slate-800 text-slate-400 rounded text-xs font-mono">model_year</span>
                         <span class="px-2 py-1 bg-slate-800 text-slate-400 rounded text-xs font-mono">gtin_ean</span>
+                    </div>
+                    <div class="mt-3 p-3 bg-slate-900/50 rounded-lg">
+                        <p class="text-xs text-slate-500">Příklad enumu <span class="text-slate-400 font-mono">bike_type</span>:</p>
+                        <p class="text-xs text-slate-400 font-mono mt-1">road | mountain-hardtail | mountain-full-suspension | gravel | trekking | city | e-bike | kids | bmx | folding</p>
                     </div>
                 </div>
 
@@ -329,6 +344,14 @@
                         <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded text-xs font-mono">groupset_tier</span>
                         <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded text-xs font-mono">brake_type</span>
                         <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded text-xs font-mono">gear_count</span>
+                    </div>
+                    <div class="mt-3 p-3 bg-slate-900/50 rounded-lg">
+                        <p class="text-xs text-slate-500">Příklad enumu <span class="text-emerald-400 font-mono">frame_material</span>:</p>
+                        <p class="text-xs text-slate-400 font-mono mt-1">carbon | aluminium | steel | titanium | chromoly</p>
+                    </div>
+                    <div class="mt-2 p-3 bg-emerald-900/20 rounded-lg border border-emerald-500/20">
+                        <p class="text-xs text-emerald-300 mb-1">🔧 Hierarchie sad (groupset_tier):</p>
+                        <p class="text-xs text-slate-400 font-mono">entry (Tourney / Altus) → mid (Deore / SLX / NX) → performance (Ultegra / XT / GX) → elite (Dura-Ace / XTR / XX)</p>
                     </div>
                 </div>
 
@@ -399,7 +422,14 @@
                 <span class="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center">📝</span>
                 Description bloky pro jízdní kola
             </h2>
-            <p class="text-slate-400 text-sm mb-6">Sémantický obsah generovaný z Blueprint dat — pro lidské čtení i LLM reasoning</p>
+            <div class="bg-slate-900/50 rounded-xl p-5 border border-slate-700/50 mb-6">
+                <p class="text-slate-300 text-sm leading-relaxed mb-2">
+                    Description bloky (D1–D7) jsou sémantický obsah, který odpovídá na reálné zákaznické otázky — od „Co to je?" přes „Hodí se to pro mě?" až po „Co by mě mohlo překvapit?". Každý blok doplňuje strukturovaná Blueprint data o kontext, zdůvodnění a transparentnost.
+                </p>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Slouží dvěma publikům současně: <strong class="text-white">zákazníkovi</strong> pomáhají pochopit a důvěřovat produktu, <strong class="text-outfindo">LLM agentům</strong> poskytují sémantický kontext pro vysvětlení a zdůvodnění doporučení. Blueprint = <em>NAJÍT</em>, Description = <em>POCHOPIT</em>.
+                </p>
+            </div>
             <div class="space-y-4">
                 <!-- D1 -->
                 <div class="layer-card bg-slate-900/50 rounded-xl p-5 border border-slate-600/30 hover:border-slate-500/50">
@@ -410,7 +440,7 @@
                     </div>
                     <p class="text-slate-500 text-sm mb-3">Úvodní věta identifikující produkt — značka, model, typ kola, klíčová vlastnost</p>
                     <div class="p-3 bg-slate-800/50 rounded-lg text-xs text-slate-400 italic">
-                        "Argon18 Sum Pro je závodní silniční kolo s karbónovým rámem a elektronickým řazením Shimano Ultegra Di2."
+                        "Argon18 Sum Pro je závodní silniční kolo s karbonovým rámem a elektronickým řazením Shimano Ultegra Di2."
                     </div>
                 </div>
 
@@ -1073,7 +1103,7 @@
                                 <td class="p-3 font-mono text-xs text-violet-400">rider_height_range_cm</td>
                                 <td class="p-3 text-center text-red-400">✗</td>
                                 <td class="p-3 text-center text-red-400">✗</td>
-                                <td class="p-3 text-center text-emerald-400">✔ 150-165 cm</td>
+                                <td class="p-3 text-center text-emerald-400">✔ 140-160 cm</td>
                             </tr>
                             <tr class="border-t border-slate-700/50">
                                 <td class="p-3 font-mono text-xs text-violet-400">reach_mm</td>
@@ -1210,7 +1240,7 @@
                             <li>• Plná L1 identita (vč. EAN)</li>
                             <li>• Materiál, velikost, kola</li>
                             <li>• Váha: 12.5 kg</li>
-                            <li>• Výška jezdce: 150-165 cm</li>
+                            <li>• Výška jezdce: 140-160 cm</li>
                             <li>• Max. zatížení: 70 kg</li>
                             <li>• ISO normy, odpružení</li>
                         </ul>
@@ -1544,42 +1574,74 @@
                 </div>
             </div>
 
-            <!-- D1: Popis produktu -->
+            <!-- D1: Identita produktu — "Co přesně kupuji?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-slate-300">📝</span> Popis produktu
+                    <span class="text-slate-300">🏷</span> D1: Co přesně kupuji?
                 </h3>
-                <div class="space-y-4">
-                    <div class="desc-block rounded-xl p-5 border border-slate-700/50">
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Argon18 Sum Pro je závodní silniční kolo postavené na karbonového rámu s geometrií optimalizovanou pro aeroefektivitu a přímou odezvu při šlapání. Řazení Shimano Ultegra Di2 zajišťuje přesné elektronické přehazování pod zátěží, kotoučové brzdy poskytují konzistentní brzdný výkon za mokra i sucha. Titanium Racing Red provedení kombinuje matný karbon s kovovým leskem pro výrazný závodní vzhled.
-                        </p>
-                    </div>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Argon18 Sum Pro je závodní silniční kolo s karbonovým rámem a elektronickou sadou Shimano Ultegra Di2, navržené pro ambiciózní závodníky a sportovní cyklisty. Díky aerodynamicky tvarovaným trubkám a integrovanému vedení kabelů dosahuje minimálního odporu vzduchu — ideální volba pro silniční závody, časovky a výkonově orientovaný trénink.
+                    </p>
+                </div>
+            </section>
 
-                    <!-- D2: Best For -->
-                    <div class="desc-block rounded-xl p-5 border border-outfindo/30">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="font-medium text-outfindo">🎯 Ideální pro</span>
-                        </div>
-                        <ul class="space-y-2 text-sm text-slate-300">
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Ambiciózní závodníky a sportovní cyklisty hledající aerodynamický silniční stroj s elektronickým řazením</li>
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Tréninkové a závodní jezdce preferující přesnost Di2 na dlouhých výjezdech a kopcích</li>
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Pokročilé cyklisty, kteří upřednostňují tuhost rámu a přímý přenos výkonu před komfortem</li>
-                        </ul>
-                    </div>
+            <!-- D2: Ideální pro — "Hodí se to na moji situaci?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-outfindo">🎯</span> D2: Hodí se to na moji situaci?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-outfindo/30">
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Pokročilí a závodní cyklisté</strong> hledající přesné řazení a tuhost rámu pro maximální přenos výkonu</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Jezdci, pro které je přesná geometrie a profesionální fitting rozhodující</strong> — závodní pozice vyžaduje správný reach a stack pro přenos výkonu</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Nadšenci pro nízkou hmotnost a tuhost rámu</strong> — kdo hledá minimální odpor bez kompromisu na tuhosti při dlouhých výjezdech</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Tréninkové a etapové jízdy na silnici, kde elektronické řazení Di2 eliminuje chybné přehazování pod zátěží</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Kopcovité tratě a časovkové úseky, kde nízká hmotnost (~7.6 kg) a aerodynamika rozhodují</li>
+                    </ul>
+                </div>
+            </section>
 
-                    <!-- D5: Key Features -->
-                    <div class="desc-block rounded-xl p-5 border border-slate-700/50">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="font-medium">⭐ Klíčové vlastnosti</span>
-                        </div>
-                        <ul class="space-y-1 text-sm text-slate-300">
-                            <li>• <strong class="text-fc">Karbonový rám</strong> – závodní geometrie s interním vedením kabelů, optimalizovaná aerodynamika trubek</li>
-                            <li>• <strong class="text-fc">Shimano Ultegra Di2</strong> – elektronické řazení 2×12 s bezchybným přehazováním pod zatížením</li>
-                            <li>• <strong class="text-fc">Kotoučové brzdy</strong> – hydraulické brzdy s konzistentním výkonem za všech podmínek</li>
-                            <li>• <strong class="text-fc">700c kola</strong> – nízký valivý odpor a efektivní přenos energie na asfalt</li>
-                        </ul>
-                    </div>
+            <!-- D3: Jak to funguje — "Proč je to lepší?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">⚙️</span> D3: Proč je to lepší?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Shimano Ultegra Di2 je elektronická sada řazení z vyšší performance řady Shimano (Tourney → Altus → Deore → SLX → <strong class="text-fc">Ultegra</strong> → Dura-Ace). Na rozdíl od mechanického řazení přes lanko používá Di2 elektromotory v přehazovačkách — přeřazení proběhne jedním stiskem tlačítka s konstantní přesností bez ohledu na zatížení, vlhkost nebo opotřebení lanek. Výsledek: přeřazení pod plným výkonem v kopci je stejně přesné jako na rovině, bez nutnosti průběžného dolaďování.
+                    </p>
+                </div>
+            </section>
+
+            <!-- D4: Specifikace v kontextu — "Stačí mi ty parametry?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">📐</span> D4: Co ta čísla znamenají?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li>• <strong class="text-white">~7.6 kg</strong> → Lehčí než většina kol v kategorii — ucítíte rozdíl při stoupání, kde každých 100 g navíc zpomaluje</li>
+                        <li>• <strong class="text-white">2×12 převodů</strong> → 24 kombinací pokrývá roviny i strmé kopce; Di2 šetří čas přehazováním pod zátěží</li>
+                        <li>• <strong class="text-white">700c kola</strong> → Standardní silniční velikost s nejnižším valivým odporem — efektivní přenos energie na asfalt</li>
+                        <li>• <strong class="text-white">Reach 380–390 mm / Stack 537–556 mm</strong> → Závodní geometrie s předkloněnou pozicí; vyžaduje flexibilitu a zkušenost s agresivním posedem</li>
+                        <li>• <strong class="text-white">Hydraulické kotoučové brzdy</strong> → Konzistentní brzdný výkon za mokra i sucha; kratší brzdná dráha než ráfkové brzdy při sjezdu</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- D5: Diferenciace — "Proč právě toto?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">⭐</span> D5: Proč právě toto a ne jiné?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li>• <strong class="text-fc">Elektronické řazení Di2</strong> místo mechanického lanka — přesné přeřazení pod zatížením bez dolaďování, bezúdržbové</li>
+                        <li>• <strong class="text-fc">Ultegra (performance tier)</strong> místo 105 (mid tier) — nižší hmotnost, přesnější přehazování, plnohodnotná elektronika</li>
+                        <li>• <strong class="text-fc">Integrovaný aero rám</strong> místo tradičních kulatých trubek — aeroprofilové trubky + vnitřní vedení kabelů snižují odpor</li>
+                        <li>• <strong class="text-fc">Kotoučové brzdy</strong> místo ráfkových brzd — konzistentní brzdný výkon v mokru i po dlouhém sjezdu bez přehřátí ráfku</li>
+                    </ul>
                 </div>
             </section>
 
@@ -1609,7 +1671,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Styl jízdy</span><span class="text-outfindo">Agresivní / závodní</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Úroveň jezdce</span><span class="text-outfindo">Pokročilý / expert</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Terén</span><span class="text-outfindo">Silnice, asfalt</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Profil jezdce</span><span class="text-outfindo">Performance-Lightweight Balancer</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Profil jezdce</span><span class="text-outfindo">Výkonově orientovaný jezdec</span></div>
                         </div>
                     </div>
                     <!-- L3 -->
@@ -1620,7 +1682,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Velikost rámu</span><span class="text-slate-300">M, L</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Velikost kol</span><span class="text-slate-300">700c</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Hmotnost</span><span class="text-slate-300">~7.6 kg</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Skupinka</span><span class="text-slate-300">Shimano Ultegra Di2</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Sada</span><span class="text-slate-300">Shimano Ultegra Di2</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Typ brzd</span><span class="text-slate-300">Hydraulické kotoučové</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Počet převodů</span><span class="text-slate-300">2×12 (24)</span></div>
                         </div>
@@ -1657,7 +1719,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Vhodné pro</span><span class="text-slate-300">Závodění, silniční trénink, sportovní jízda</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Nevhodné pro</span><span class="text-red-400">Terénní jízda, gravel, dojíždění do práce</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Toto kolo není</span><span class="text-red-400">Trekingové kolo, e-bike, MTB</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Vyžaduje</span><span class="text-slate-300">Zkušenost s karbonovou údržbou, profesionální fitting</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Vyžaduje</span><span class="text-slate-300">Údržba karbonového rámu (momentový klíč), profesionální fitting</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Max. hmotnost jezdce</span><span class="text-slate-300">100 kg</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Max. zatížení</span><span class="text-slate-300">110 kg</span></div>
                         </div>
@@ -1665,47 +1727,51 @@
                 </div>
             </section>
 
-            <!-- D3: FAQ -->
+            <!-- D6: Praktický průvodce — "Zvládnu to?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-slate-300">❓</span> Často kladené dotazy
+                    <span class="text-slate-300">🔧</span> D6: Zvládnu to?
                 </h3>
                 <div class="desc-block rounded-xl p-5 border border-slate-700/50">
                     <div class="space-y-4 text-sm">
                         <div>
-                            <p class="text-white font-medium mb-1">Je Argon18 Sum Pro vhodný pro začátečníky?</p>
-                            <p class="text-slate-400">Ne. Sum Pro je závodní stroj navržený pro pokročilé a expertní jezdce. Agresivní geometrie a tuhost rámu vyžadují zkušenost. Začátečníkům doporučujeme endurance modely s komfortnější geometrií.</p>
+                            <p class="text-white font-medium mb-2">🛠 Nastavení po koupi</p>
+                            <p class="text-slate-300">Di2 přijde z výroby nakalibrované — po rozbalení stačí nabít baterii přes přibalený kabel a zkontrolovat tlak v plášti (doporučení na boku pláště). Bike fitting doporučujeme před první jízdou — závodní geometrie vyžaduje přesnou výšku sedla a reach.</p>
                         </div>
                         <div>
-                            <p class="text-white font-medium mb-1">Mohu s ním jezdit na gravel nebo nezpevněné cesty?</p>
-                            <p class="text-slate-400">Kolo není určeno pro nezpevněné povrchy. Silniční pláště 700c a absence odpružení znamenají, že gravel a terén mohou poškodit komponenty a zhoršit kontrolu.</p>
+                            <p class="text-white font-medium mb-2">🚴 Denní provoz</p>
+                            <p class="text-slate-300">Baterie Di2 vydrží 1 000–2 000 km na jedno nabití. Stav baterie zkontrolujete stiskem tlačítka na přehazovačce (zelená = OK, červená = dobijte). Karbonový rám čistěte pouze vlhkým hadrem bez rozpouštědel.</p>
                         </div>
                         <div>
-                            <p class="text-white font-medium mb-1">Co obnáší údržba elektronického řazení Di2?</p>
-                            <p class="text-slate-400">Shimano Di2 vyžaduje nabíjení baterie přibližně každých 1 000–2 000 km a občasnou kalibraci přes aplikaci E-Tube. Mechanická údržba je minimální oproti lankům.</p>
+                            <p class="text-white font-medium mb-2">⚙️ Údržba</p>
+                            <p class="text-slate-300">Karbonové díly utahujte výhradně momentovým klíčem (max. Nm hodnota je vyražena u každého šroubu). Řetěz mažte každých 300–500 km. Firmware Di2 aktualizujte přes aplikaci Shimano E-Tube — update trvá 5 minut přes Bluetooth.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- D6: Omezení -->
+            <!-- D7: Omezení a očekávání — "Co by mě mohlo překvapit?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-red-400">⚠️</span> Na co si dát pozor
+                    <span class="text-red-400">⚠️</span> D7: Co by mě mohlo překvapit?
                 </h3>
                 <div class="desc-block rounded-xl p-5 border border-red-500/30">
-                    <div class="space-y-2 text-sm">
+                    <div class="space-y-3 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Agresivní pozice:</strong> Závodní geometrie s nízkým stackem znamená předklon — nekomfortní pro víkendové rekreační jezdce.</p>
+                            <span class="text-emerald-400">✓</span>
+                            <p class="text-slate-300"><strong class="text-white">Vhodné pro:</strong> Silniční závody, časovky, sportovní trénink na asfaltu, kopcovité etapy, skupinové výjezdy pokročilých</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Bez úchytů:</strong> Rám nemá otvory pro nosič ani blatníky — nelze přizpůsobit pro dojíždění nebo cestování s brašnami.</p>
+                            <span class="text-red-400">✗</span>
+                            <p class="text-slate-300"><strong class="text-white">Nevhodné pro:</strong> Gravel a nezpevněné cesty, dojíždění do práce, rekreační víkendové jízdy, touring s brašnami</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Karbonová údržba:</strong> Karbon vyžaduje momentový klíč při utahování a nesmí se upínat za rám do běžného stojanu — riziko poškození.</p>
+                            <span class="text-amber-400">⚠️</span>
+                            <p class="text-slate-300"><strong class="text-white">Toto NENÍ:</strong> Endurance kolo (závodní geometrie = předklon, ne komfort), gravel bike (silniční pláště, žádné odpružení), městské kolo (bez úchytů na nosič/blatníky)</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-blue-400">📋</span>
+                            <p class="text-slate-300"><strong class="text-white">Vyžaduje:</strong> Údržba karbonového rámu — vyžaduje použití momentového klíče, profesionální bike fitting, upínání za sedlovku (ne za rám!) do stojanu, max. hmotnost jezdce 100 kg</p>
                         </div>
                     </div>
                 </div>
@@ -1768,40 +1834,74 @@
                 </div>
             </div>
 
-            <!-- D1 + D2 + D5 -->
+            <!-- D1: Identita produktu — "Co přesně kupuji?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-slate-300">📝</span> Popis produktu
+                    <span class="text-slate-300">🏷</span> D1: Co přesně kupuji?
                 </h3>
-                <div class="space-y-4">
-                    <div class="desc-block rounded-xl p-5 border border-slate-700/50">
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Aurum Magma 56 je prémiové aerodynamické silniční kolo osazené top-tier skupinkou Shimano Dura-Ace a karbónovými koly Princeton CarbonWorks. Rám Magma byl navržen s důrazem na integraci — vnitřní vedení kabelů, integrovaná sedlová trubka a aeroprofilové trubky minimalizují odpor vzduchu. Výsledkem je stroj, který exceluje v časovkách, závodních pelotonu a kopcovitých etapách.
-                        </p>
-                    </div>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Aurum Magma 56 je prémiové aerodynamické silniční kolo s karbonovým rámem, sadou Shimano Dura-Ace R9200 a karbonovými koly Princeton CarbonWorks — kompletní závodní sestava bez kompromisů. Aero rám s plnou integrací kabelů a profilovanými trubkami minimalizuje odpor vzduchu, zatímco Dura-Ace R9200 nabízí nejpřesnější a nejlehčí mechanické řazení od Shimano. Kolo pro závodníky a triatletisty, kteří požadují maximální výkon.
+                    </p>
+                </div>
+            </section>
 
-                    <div class="desc-block rounded-xl p-5 border border-outfindo/30">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="font-medium text-outfindo">🎯 Ideální pro</span>
-                        </div>
-                        <ul class="space-y-2 text-sm text-slate-300">
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Závodní cyklisty a triatletisty hledající maximální aerodynamickou výhodu s top-tier komponenty</li>
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Vážné amatérské závodníky investující do kompletního balíku rám + kola bez kompromisů</li>
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Nadšence pro dlouhé kopcovité tratě, kteří ocení nízkou hmotnost a přesné řazení Dura-Ace</li>
-                        </ul>
-                    </div>
+            <!-- D2: Ideální pro — "Hodí se to na moji situaci?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-outfindo">🎯</span> D2: Hodí se to na moji situaci?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-outfindo/30">
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Jezdci vyžadující špičkovou geometrii a komponenty bez kompromisů</strong> — závodní nasazení, kde rozhoduje přesnost fittingu a kvalita každého dílu</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Nadšenci pro nízkou hmotnost a aerodynamiku</strong> — kdo chce ~7.2 kg s maximální aerodynamickou efektivitou v jednom balíku</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Závodní cyklisté a triatletisté — kompletní balík rám + Princeton kola eliminuje potřebu upgradu po koupi</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Kopcovité etapy a časovky — Dura-Ace R9200 s nejnižší hmotností sady (2 082 g) a nejkratší dobou přeřazení</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Skupinové závody v pelotonu — aero profil kol Princeton snižuje odpor i v závětří za skupinou</li>
+                    </ul>
+                </div>
+            </section>
 
-                    <div class="desc-block rounded-xl p-5 border border-slate-700/50">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="font-medium">⭐ Klíčové vlastnosti</span>
-                        </div>
-                        <ul class="space-y-1 text-sm text-slate-300">
-                            <li>• <strong class="text-fc">Shimano Dura-Ace</strong> – nejlehčí a nejpřesnější mechanická skupinka od Shimano, 2×12 převodů</li>
-                            <li>• <strong class="text-fc">Princeton CarbonWorks kola</strong> – aero karbonová zapletená kola s minimálním odporem vzduchu</li>
-                            <li>• <strong class="text-fc">Integrovaný aero rám</strong> – plná vnitřní integrace kabelů, aeroprofilové trubky a integrovaná sedlovka</li>
-                            <li>• <strong class="text-fc">Kotoučové brzdy</strong> – hydraulické brzdy se spolehlivým výkonem ve vysokých rychlostech i mokru</li>
-                        </ul>
-                    </div>
+            <!-- D3: Jak to funguje — "Proč je to lepší?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">⚙️</span> D3: Proč je to lepší?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Shimano Dura-Ace R9200 je absolutní vrchol silniční řady Shimano — nejlehčí sada s nejpřesnějším mechanickým řazením. Na rozdíl od nižších řad (Ultegra, 105) používá Dura-Ace titanové a karbonové díly pro minimální hmotnost při maximální tuhosti. Kola Princeton CarbonWorks mají aerodynamický profil navržený v CFD simulacích a ověřený v tunelu — snižují odpor vzduchu při rychlostech nad 35 km/h o měřitelných 3–5 W oproti standardním karbonovým kolům.
+                    </p>
+                </div>
+            </section>
+
+            <!-- D4: Specifikace v kontextu — "Co ta čísla znamenají?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">📐</span> D4: Co ta čísla znamenají?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li>• <strong class="text-white">~7.2 kg</strong> → Blízko limitu UCI (6.8 kg) — každý gram navíc ušetřený oproti běžným kolům (8.5+ kg) se projeví ve stoupání</li>
+                        <li>• <strong class="text-white">2×12 převodů (Dura-Ace R9200)</strong> → Nejmenší skoky mezi převody v nabídce Shimano; řazení je přesné i po tisících km bez přenastavení</li>
+                        <li>• <strong class="text-white">Princeton CarbonWorks kola</strong> → Aero profil ověřený v tunelu — při 40 km/h ušetříte ~5 W oproti standardním kolům, na 40km časovce = ~30 s</li>
+                        <li>• <strong class="text-white">Reach 392 mm / Stack 558 mm (vel. 56)</strong> → Agresivní závodní geometrie; vyžaduje flexibilitu a zkušenost, ne pro relaxační posezetí</li>
+                        <li>• <strong class="text-white">Hydraulické kotoučové brzdy</strong> → Dura-Ace BR-R9270 — nejlehčí kotoučové brzdy Shimano s konstantním výkonem za mokra i po 100km sjezdu</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- D5: Diferenciace — "Proč právě toto?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">⭐</span> D5: Proč právě toto a ne jiné?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li>• <strong class="text-fc">Dura-Ace (elite tier)</strong> místo Ultegra (performance) — o 200 g lehčí sada, titanové díly, přesnější přehazování s menšími skoky mezi převody</li>
+                        <li>• <strong class="text-fc">Princeton CarbonWorks kola</strong> místo běžných karbonových kol — aero profil z CFD tunelu, ne generický hluboký ráfek</li>
+                        <li>• <strong class="text-fc">Kompletní závodní sestava</strong> místo rámu s „dostatečnými" komponenty — není potřeba upgradovat kola ani sadu po koupi</li>
+                        <li>• <strong class="text-fc">Integrovaný aero rám Magma</strong> místo tradičního round-tube designu — aeroprofilové trubky + skrytá sedlová svěrka + vnitřní vedení = čistý design s nižším Cd</li>
+                    </ul>
                 </div>
             </section>
 
@@ -1829,7 +1929,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Styl jízdy</span><span class="text-outfindo">Agresivní / závodní</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Úroveň jezdce</span><span class="text-outfindo">Expert</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Terén</span><span class="text-outfindo">Silnice, asfalt</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Profil jezdce</span><span class="text-outfindo">Performance-Lightweight Balancer</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Profil jezdce</span><span class="text-outfindo">Výkonově orientovaný jezdec</span></div>
                         </div>
                     </div>
                     <div class="p-4 border-b border-slate-700/50">
@@ -1839,7 +1939,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Velikost rámu</span><span class="text-slate-300">56</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Velikost kol</span><span class="text-slate-300">700c</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Hmotnost</span><span class="text-slate-300">~7.2 kg</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Skupinka</span><span class="text-slate-300">Shimano Dura-Ace R9200</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Sada</span><span class="text-slate-300">Shimano Dura-Ace R9200</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Typ brzd</span><span class="text-slate-300">Hydraulické kotoučové</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Počet převodů</span><span class="text-slate-300">2×12 (24)</span></div>
                         </div>
@@ -1873,7 +1973,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Vhodné pro</span><span class="text-slate-300">Závodění, silniční trénink, časovky</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Nevhodné pro</span><span class="text-red-400">Terén, gravel, dojíždění, touring</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Toto kolo není</span><span class="text-red-400">Endurance kolo, gravel bike, městské kolo</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Vyžaduje</span><span class="text-slate-300">Profesionální bike fitting, karbonová údržba</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Vyžaduje</span><span class="text-slate-300">Profesionální bike fitting, údržba karbonového rámu (momentový klíč)</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Max. hmotnost jezdce</span><span class="text-slate-300">100 kg</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Max. zatížení</span><span class="text-slate-300">110 kg</span></div>
                         </div>
@@ -1881,47 +1981,51 @@
                 </div>
             </section>
 
-            <!-- D3: FAQ -->
+            <!-- D6: Praktický průvodce — "Zvládnu to?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-slate-300">❓</span> Často kladené dotazy
+                    <span class="text-slate-300">🔧</span> D6: Zvládnu to?
                 </h3>
                 <div class="desc-block rounded-xl p-5 border border-slate-700/50">
                     <div class="space-y-4 text-sm">
                         <div>
-                            <p class="text-white font-medium mb-1">Proč je cena téměř 300 000 Kč?</p>
-                            <p class="text-slate-400">Aurum Magma kombinuje prémiový karbonový rám s top-of-the-line skupinkou Dura-Ace a koly Princeton CarbonWorks. Je to kompletní závodní sestava bez kompromisů — ekvivalent toho, co jezdí profíci na etapových závodech.</p>
+                            <p class="text-white font-medium mb-2">🛠 Nastavení po koupi</p>
+                            <p class="text-slate-300">Profesionální bike fitting je u kola za 300 000 Kč nutnost, ne volba — závodní geometrie Magma vyžaduje přesnou pozici. Dura-Ace R9200 přijde z výroby nastaven. Princeton kola zkontrolujte na správný tlak (doporučení na boku pláště, typicky 6–8 bar podle hmotnosti jezdce).</p>
                         </div>
                         <div>
-                            <p class="text-white font-medium mb-1">Co jsou kola Princeton CarbonWorks?</p>
-                            <p class="text-slate-400">Princeton CarbonWorks vyrábí vysoce specializovaná karbonová kola s aerodynamickými profily optimalizovanými v aerodynamickém tunelu. Snižují odpor vzduchu a zlepšují stabilitu v bočním větru.</p>
+                            <p class="text-white font-medium mb-2">🚴 Denní provoz</p>
+                            <p class="text-slate-300">Dura-Ace řazení nevyžaduje průběžné dolaďování — mechanismus drží kalibraci tisíce km. Karbonová kola Princeton čistěte měkkým hadrem, pozor na obrubníky a zpomalovací prahy (karbonový ráfek je odolný, ale ne nerozbitný).</p>
                         </div>
                         <div>
-                            <p class="text-white font-medium mb-1">Je velikost 56 pro mě správná?</p>
-                            <p class="text-slate-400">Velikost 56 je typicky určena jezdcům s výškou 176–184 cm. Doporučujeme profesionální bike fitting, protože závodní geometrie Magma vyžaduje přesné nastavení pozice pro maximální výkon a pohodlí.</p>
+                            <p class="text-white font-medium mb-2">⚙️ Údržba</p>
+                            <p class="text-slate-300">Všechny karbonové díly utahujte momentovým klíčem (Nm hodnoty vyznačeny). Řetěz mažte každých 300 km. Brzdové destičky Dura-Ace kontrolujte vizuálně před každou závodní sezónou. Doporučujeme pojistit kolo — náhrada Princeton kol přesahuje 100 000 Kč.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- D6 -->
+            <!-- D7: Omezení a očekávání — "Co by mě mohlo překvapit?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-red-400">⚠️</span> Na co si dát pozor
+                    <span class="text-red-400">⚠️</span> D7: Co by mě mohlo překvapit?
                 </h3>
                 <div class="desc-block rounded-xl p-5 border border-red-500/30">
-                    <div class="space-y-2 text-sm">
+                    <div class="space-y-3 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Extrémní investice:</strong> Za 300 000 Kč se jedná o kolo vyžadující odpovídající péči — profesionální servis, bezpečné uložení, specializované pojištění.</p>
+                            <span class="text-emerald-400">✓</span>
+                            <p class="text-slate-300"><strong class="text-white">Vhodné pro:</strong> Silniční závody, časovky, triatlon, etapové závody, kopcovité tratě s asfaltovým povrchem</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Pouze závodní geometrie:</strong> Aero pozice je nekomfortní pro relaxační jízdu — není vhodné jako „kolo na víkend".</p>
+                            <span class="text-red-400">✗</span>
+                            <p class="text-slate-300"><strong class="text-white">Nevhodné pro:</strong> Gravel a nezpevněné cesty, dojíždění do práce, touring, rekreační jízdu</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Princeton kola:</strong> Karbonová kola vyžadují šetrné zacházení s obrubníky a zpomalovacími prahy — náhrada je nákladná.</p>
+                            <span class="text-amber-400">⚠️</span>
+                            <p class="text-slate-300"><strong class="text-white">Toto NENÍ:</strong> Endurance kolo (aero pozice ≠ komfort na 6h výjezdu), gravel bike (silniční pláště, žádná průchodnost rámu pro širší gumy), „kolo na víkend" (vyžaduje odpovídající zacházení a uložení)</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-blue-400">📋</span>
+                            <p class="text-slate-300"><strong class="text-white">Vyžaduje:</strong> Profesionální bike fitting, údržba karbonového rámu — vyžaduje použití momentového klíče, bezpečné uložení (karbonový rám + Princeton kola), max. hmotnost jezdce 100 kg</p>
                         </div>
                     </div>
                 </div>
@@ -1972,7 +2076,7 @@
                         <div class="flex flex-wrap gap-2 mb-3">
                             <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-400">Aluminium</span>
                             <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-400">Shimano Altus</span>
-                            <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-400">V-Brakes</span>
+                            <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-400">Disc Brakes</span>
                             <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-400">27.5"</span>
                             <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-400">Junior MTB</span>
                         </div>
@@ -1984,40 +2088,74 @@
                 </div>
             </div>
 
-            <!-- D1 + D2 + D5 -->
+            <!-- D1: Identita produktu — "Co přesně kupuji?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-slate-300">📝</span> Popis produktu
+                    <span class="text-slate-300">🏷</span> D1: Co přesně kupuji?
                 </h3>
-                <div class="space-y-4">
-                    <div class="desc-block rounded-xl p-5 border border-slate-700/50">
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Superior Team 27.3 je juniorský horský kolo navržené pro mladé jezdce 150–165 cm. Hliníkový rám s přední odpruženou vidlicí SR Suntour XCE nabízí 100 mm zdvihu pro pohodlnou jízdu na lesních cestách i lehkém terénu. Řazení Shimano Altus 3×8 poskytuje dostatečný rozsah převodů pro kopce i roviny, mechanické V-brzdy zajišťují spolehlivé brzdění s jednoduchým seřízením.
-                        </p>
-                    </div>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Superior Team 27.3 je juniorské horské kolo s hliníkovým rámem a přední odpruženou vidlicí SR Suntour XCE (100 mm zdvihu), navržené pro mladé jezdce s výškou 140–160 cm. Sada Shimano Altus 3×8 nabízí 24 převodů pro kopce i roviny, hydraulické kotoučové brzdy zajišťují spolehlivé brzdění za každého počasí. Ideální první „velké" kolo na lesní stezky, cyklostezky a víkendové výlety s rodinou.
+                    </p>
+                </div>
+            </section>
 
-                    <div class="desc-block rounded-xl p-5 border border-outfindo/30">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="font-medium text-outfindo">🎯 Ideální pro</span>
-                        </div>
-                        <ul class="space-y-2 text-sm text-slate-300">
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Mladé jezdce (150–165 cm), kteří přecházejí z dětských kol na plnohodnotné MTB s plným řazením</li>
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Rodiny hledající odolné kolo na lesní stezky, cyklostezky a víkendové výlety s rodiči</li>
-                            <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Začínající jezdce, kteří potřebují odpuštěná přední vidlice pro komfort a jistotu na nerovnostech</li>
-                        </ul>
-                    </div>
+            <!-- D2: Ideální pro — "Hodí se to na moji situaci?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-outfindo">🎯</span> D2: Hodí se to na moji situaci?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-outfindo/30">
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Rodiče hledající bezpečné a odolné kolo pro dítě</strong> — kolo, ze kterého junior „vyroste" za 2–3 sezóny, s jednoduchým seřízením</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> <strong class="text-white">Rodiny preferující jednoduchou údržbu</strong> — hydraulické brzdy a Shimano Altus nevyžadují časté seřizování, náhradní díly dostupné v každém servisu</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Mladí jezdci (140–160 cm) přecházející z dětských kol na plnohodnotné MTB s 24 převody a odpruženou vidlicí</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Víkendové rodinné výlety na lesních stezkách, cyklostezkách a lehkém terénu s kořeny</li>
+                        <li class="flex items-start gap-2"><span class="text-outfindo">•</span> Dojíždění do školy po zpevněných i nezpevněných cestách (s doplněnými blatníky a světly)</li>
+                    </ul>
+                </div>
+            </section>
 
-                    <div class="desc-block rounded-xl p-5 border border-slate-700/50">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="font-medium">⭐ Klíčové vlastnosti</span>
-                        </div>
-                        <ul class="space-y-1 text-sm text-slate-300">
-                            <li>• <strong class="text-fc">Hliníkový rám</strong> – nízká hmotnost (12.5 kg) a odolnost proti korozi, ideální pro juniorské použití</li>
-                            <li>• <strong class="text-fc">SR Suntour XCE 100mm</strong> – odpružená vidlice tlumí nerovnosti na lesních stezkách a polních cestách</li>
-                            <li>• <strong class="text-fc">Shimano Altus 3×8</strong> – 24 převodů s intuitivním ovládáním vhodným pro začínající jezdce</li>
-                            <li>• <strong class="text-fc">27.5" kola</strong> – menší kola pro lepší ovladatelnost a přiměřený rollover pro mladší jezdce</li>
-                        </ul>
-                    </div>
+            <!-- D3: Jak to funguje — "Proč je to lepší?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">⚙️</span> D3: Proč je to lepší?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Shimano Altus je vstupní MTB sada od Shimano, navržená pro spolehlivost a snadnou obsluhu. Na rozdíl od vyšších řad (Deore, SLX, XT) nepoužívá shadow přehazovačku ani clutch mechanismus — ale pro juniorské použití na lehkém terénu je to výhoda: jednodušší seřízení, nižší cena náhradních dílů a intuitivní ovládání řazení pro začínající jezdce. Přední vidlice SR Suntour XCE se 100 mm zdvihu tlumí kořeny a kameny na lesních cestách — dostatečný zdvih pro juniorský terén bez zbytečné hmotnosti.
+                    </p>
+                </div>
+            </section>
+
+            <!-- D4: Specifikace v kontextu — "Co ta čísla znamenají?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">📐</span> D4: Co ta čísla znamenají?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li>• <strong class="text-white">12.5 kg</strong> → Přijatelná hmotnost pro juniorské MTB — dítě o hmotnosti 35–50 kg kolo pohodlně ovládá a zvedne</li>
+                        <li>• <strong class="text-white">3×8 převodů (24)</strong> → Široký rozsah od lehkých převodů na kopce po rychlé na rovině; 3 přepínače vpředu jsou tolerantnější k nepřesnému řazení</li>
+                        <li>• <strong class="text-white">27.5" kola</strong> → Menší než dospělý standard (29") — lepší ovladatelnost pro juniory, snazší nasedání a sesedání</li>
+                        <li>• <strong class="text-white">100 mm zdvihu vidlice</strong> → Dostatečný pro kořeny, kameny a mírné sjezdy; není zbytečně těžká jako 120+ mm vidlice</li>
+                        <li>• <strong class="text-white">Hydraulické kotoučové brzdy</strong> → Konzistentní brzdný výkon za mokra i sucha; samočinné dostavování při opotřebení destiček</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- D5: Diferenciace — "Proč právě toto?" -->
+            <section class="mb-10">
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                    <span class="text-slate-300">⭐</span> D5: Proč právě toto a ne jiné?
+                </h3>
+                <div class="desc-block rounded-xl p-5 border border-slate-700/50">
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li>• <strong class="text-fc">Shimano Altus</strong> místo neznačkových sad — spolehlivost Shimano s dostupností náhradních dílů v každém servisu</li>
+                        <li>• <strong class="text-fc">SR Suntour XCE vidlice (100 mm)</strong> místo rigid vidlice — pohodlí na nerovnostech bez přidané hmotnosti</li>
+                        <li>• <strong class="text-fc">Hliníkový rám</strong> místo ocelového — o 1–2 kg lehčí, nerezaví, lépe absorbuje vibrace</li>
+                        <li>• <strong class="text-fc">27.5" kola</strong> místo 26" — lepší přejezd přes překážky při zachování ovladatelnosti pro menší jezdce</li>
+                    </ul>
                 </div>
             </section>
 
@@ -2045,7 +2183,7 @@
                             <div class="flex justify-between"><span class="text-slate-500">Styl jízdy</span><span class="text-outfindo">Rekreační / sportovní junior</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Úroveň jezdce</span><span class="text-outfindo">Začátečník / mírně pokročilý</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Terén</span><span class="text-outfindo">Lesní cesty, cyklostezky, lehký terén</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Profil jezdce</span><span class="text-outfindo">Family Safety-and-Growth Buyer</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Profil jezdce</span><span class="text-outfindo">Rodič kupující bezpečné kolo pro dítě</span></div>
                         </div>
                     </div>
                     <div class="p-4 border-b border-slate-700/50">
@@ -2055,15 +2193,15 @@
                             <div class="flex justify-between"><span class="text-slate-500">Velikost rámu</span><span class="text-slate-300">XS (13.5")</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Velikost kol</span><span class="text-slate-300">27.5"</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Hmotnost</span><span class="text-slate-300">12.5 kg</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Skupinka</span><span class="text-slate-300">Shimano Altus</span></div>
-                            <div class="flex justify-between"><span class="text-slate-500">Typ brzd</span><span class="text-slate-300">Mechanické V-brzdy</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Sada</span><span class="text-slate-300">Shimano Altus</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Typ brzd</span><span class="text-slate-300">Hydraulické kotoučové</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Počet převodů</span><span class="text-slate-300">3×8 (24)</span></div>
                         </div>
                     </div>
                     <div class="p-4 border-b border-slate-700/50">
                         <h4 class="font-medium text-violet-400 text-sm mb-3">L4: Geometry & Fit</h4>
                         <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
-                            <div class="flex justify-between"><span class="text-slate-500">Výška jezdce</span><span class="text-slate-300">150–165 cm</span></div>
+                            <div class="flex justify-between"><span class="text-slate-500">Výška jezdce</span><span class="text-slate-300">140–160 cm</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Reach</span><span class="text-slate-300">370 mm</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Stack</span><span class="text-slate-300">580 mm</span></div>
                             <div class="flex justify-between"><span class="text-slate-500">Standover</span><span class="text-slate-300">68.5 cm</span></div>
@@ -2097,47 +2235,51 @@
                 </div>
             </section>
 
-            <!-- D3: FAQ -->
+            <!-- D6: Praktický průvodce — "Zvládnu to?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-slate-300">❓</span> Často kladené dotazy
+                    <span class="text-slate-300">🔧</span> D6: Zvládnu to?
                 </h3>
                 <div class="desc-block rounded-xl p-5 border border-slate-700/50">
                     <div class="space-y-4 text-sm">
                         <div>
-                            <p class="text-white font-medium mb-1">Pro jakou věkovou skupinu je Team 27.3 vhodné?</p>
-                            <p class="text-slate-400">Kolo je navržené pro mladé jezdce s výškou 150–165 cm, což obvykle odpovídá věku přibližně 10–14 let. Rozhodující je výška, ne věk — měřte výšku dítěte a porovnejte s doporučeným rozsahem.</p>
+                            <p class="text-white font-medium mb-2">🛠 Nastavení po koupi</p>
+                            <p class="text-slate-300">Nastavte výšku sedla tak, aby dítě dosáhlo špičkami na zem při sedu. Zkontrolujte dotažení rychloupínáků na kolech (pokud jimi kolo disponuje). Hydraulické brzdy přijdou seřízené z výroby — zkontrolujte, že páčky mají dostatečný dosah pro menší ruce dítěte (nastavitelný šroubkem na páčce).</p>
                         </div>
                         <div>
-                            <p class="text-white font-medium mb-1">Můžeme s koly jezdit i po lesních cestách s kořeny?</p>
-                            <p class="text-slate-400">Ano, přední odpružení se 100 mm zdvihu zvládne lesní cesty a lehký terén s kořeny a kameny. Kolo však není navrženo pro agresivní trail riding nebo skoky.</p>
+                            <p class="text-white font-medium mb-2">🚴 Denní provoz</p>
+                            <p class="text-slate-300">Před každou jízdou zkontrolujte tlak v plášti (doporučení na boku pláště, typicky 2.5–3.5 bar). Hydraulické kotoučové brzdy fungují konzistentně i za deště — ale naučte dítě brzdit oběma brzdami současně. Pro dojíždění do školy doplňte blatníky a světla (univerzální sada, rám nemá úchyty).</p>
                         </div>
                         <div>
-                            <p class="text-white font-medium mb-1">Je kolo vhodné i pro dojíždění do školy?</p>
-                            <p class="text-slate-400">Ano, ačkoliv nemá blatníky ani nosič v základní výbavě. Pro dojíždění doporučujeme doplnit blatníky a světla — rám však nemá standardní úchyty, takže bude potřeba univerzální sada.</p>
+                            <p class="text-white font-medium mb-2">⚙️ Údržba</p>
+                            <p class="text-slate-300">Řetěz mažte každé 2–3 týdny při pravidelném ježdění. Brzdové destičky kontrolujte vizuálně — výměna při opotřebení (destičky za 100–200 Kč). Vidlice SR Suntour XCE nevyžaduje servis kroužků — stačí ji po blátivé jízdě otřít a namazat stojny silikonovým sprejem.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- D6 -->
+            <!-- D7: Omezení a očekávání — "Co by mě mohlo překvapit?" -->
             <section class="mb-10">
                 <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <span class="text-red-400">⚠️</span> Na co si dát pozor
+                    <span class="text-red-400">⚠️</span> D7: Co by mě mohlo překvapit?
                 </h3>
                 <div class="desc-block rounded-xl p-5 border border-red-500/30">
-                    <div class="space-y-2 text-sm">
+                    <div class="space-y-3 text-sm">
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Maximální zatížení 70 kg:</strong> Kolo je určeno pro juniory — dospělý jezdec nad 70 kg překračuje limity rámu a komponent, nebezpečné.</p>
+                            <span class="text-emerald-400">✓</span>
+                            <p class="text-slate-300"><strong class="text-white">Vhodné pro:</strong> Lesní stezky, cyklostezky, lehký terén s kořeny, dojíždění do školy, víkendové rodinné výlety</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">V-brzdy v dešti:</strong> Mechanické V-brzdy mají v mokru výrazně delší brzdnou dráhu — dítě musí počítat s delší vzdáleností na zastavení.</p>
+                            <span class="text-red-400">✗</span>
+                            <p class="text-slate-300"><strong class="text-white">Nevhodné pro:</strong> Agresivní trail riding, skoky a dropp-offy, downhill, silniční závodění</p>
                         </div>
                         <div class="flex items-start gap-2">
-                            <span class="text-red-400">⚠️</span>
-                            <p class="text-slate-300"><strong class="text-red-400">Dítě kolo „přeroste":</strong> Při výšce nad 165 cm bude rám příliš malý — plánujte výměnu za větší velikost, nikoli prodlužování sedlovky nad bezpečnou mez.</p>
+                            <span class="text-amber-400">⚠️</span>
+                            <p class="text-slate-300"><strong class="text-white">Toto NENÍ:</strong> Full-suspension MTB (hardtail = odpružení pouze vpředu), silniční kolo (MTB pláště, vzpřímená pozice), kolo pro dospělé (max. zatížení 70 kg, rám XS)</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-blue-400">📋</span>
+                            <p class="text-slate-300"><strong class="text-white">Vyžaduje:</strong> Nastavení výšky sedla podle výšky dítěte, rodičovská kontrola brzd před jízdou, max. hmotnost jezdce 70 kg, výměna za větší rám při výšce nad 160 cm</p>
                         </div>
                     </div>
                 </div>
